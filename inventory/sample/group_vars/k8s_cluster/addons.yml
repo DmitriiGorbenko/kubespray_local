@@ -13,7 +13,7 @@ registry_enabled: false
 # registry_disk_size: "10Gi"
 
 # Metrics Server deployment
-metrics_server_enabled: false
+metrics_server_enabled: true
 # metrics_server_container_port: 10250
 # metrics_server_kubelet_insecure_tls: true
 # metrics_server_metric_resolution: 15s
@@ -101,8 +101,21 @@ gateway_api_enabled: false
 # gateway_api_experimental_channel: false
 
 # Nginx ingress controller deployment
-ingress_nginx_enabled: false
-# ingress_nginx_host_network: false
+ingress_nginx_enabled: true
+ingress_nginx_host_network: true
+ingress_nginx_configmap:
+   server-tokens: "False"
+   proxy-body-size: "2048M"
+   proxy-buffer-size: "16k"
+   worker-shutdown-timeout: "180"
+ingress_nginx_nodeselector:
+  node-role.kubernetes.io/ingress: ""
+ingress_nginx_tolerations:
+  - key: "node-role.kubernetes.io/ingress"
+    operator: "Exists"
+
+
+
 # ingress_nginx_service_type: LoadBalancer
 # ingress_nginx_service_nodeport_http: 30080
 # ingress_nginx_service_nodeport_https: 30081
